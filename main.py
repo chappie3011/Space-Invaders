@@ -3,22 +3,18 @@
  
 #                                              Author: Ishan Shukla                                         #
  
-#                                              Description: Blah Blah                                       #
+#                     Description: Basic space invaders game made using pygame library                      #
  
 #                                                                                                           #
- 
-#                                                                                                           #
- 
-#                                                                                                           #
- 
-#                                                                                                           #
+                                                                                                            #
 #############################################################################################################
  
 #Import Libraries
  
 import pygame
 import random
-#Screen Constants
+
+#Screen Constants (ship, bullet)
  
 XMODE = 800
 YMODE = 600
@@ -30,7 +26,7 @@ pygame.init()
  
  
  
-# Game Images                                                                                                                                                             
+#Load game images                                                                                                                                                             
  
 backImg = 'background.png'
 bg = pygame.image.load(backImg)
@@ -42,12 +38,20 @@ defender.set_colorkey((0, 0, 0))
 playerx=370
 playery=480
 playerx_change=0
-# Setup Screen
- 
+bulletimg=pygame.image.load("bullet.png")
+bulletimg = pygame.transform.scale(bulletimg, (30, 20))
+bulletx=0
+bullety=480 
+bulletx_change=0
+bullety_change=10
+bullet_state="ready"
+
+
+#Setup screen
+
 screen = pygame.display.set_mode((XMODE, YMODE))
  
-# Game loop
- 
+#Show score
  
 score_value=0
 font=pygame.font.Font("freesansbold.ttf",32)
@@ -57,11 +61,7 @@ def show_score(x,y):
     score=font.render("Score: "+str(score_value),True,(255,255,255))
     screen.blit(score,(x,y))
  
- 
- 
- 
- 
- 
+
 over_font=pygame.font.Font("freesansbold.ttf",64)
  
 def game_over_text():
@@ -72,7 +72,8 @@ def game_over_text():
  
  
  
- 
+#Load enemy
+
 enemyimg=[]
 enemyx=[]
 enemyy=[]
@@ -91,17 +92,11 @@ for i in range(num_enemies):
  
  
  
-bulletimg=pygame.image.load("bullet.png")
-bulletimg = pygame.transform.scale(bulletimg, (30, 20))
-bulletx=0
-bullety=480 
-bulletx_change=0
-bullety_change=10
-bullet_state="ready"
+
  
  
  
- 
+#movement method
  
 def player(x,y):
     screen.blit(defender,(x,y))
@@ -111,7 +106,8 @@ def enemy(x,y,i):
  
  
  
- 
+#bullet firing method 
+
 def fire_bullet(x,y):
     global bullet_state
     bullet_state="fire"
@@ -121,7 +117,7 @@ def fire_bullet(x,y):
  
  
  
- 
+#bullet collision method
  
 def iscollision(enemyx,enemyy,bulletx,bullety):
     
@@ -135,6 +131,7 @@ def iscollision(enemyx,enemyy,bulletx,bullety):
  
  
  
+#game loop 
  
 running=True
 while running:
