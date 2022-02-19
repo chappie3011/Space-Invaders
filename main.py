@@ -24,17 +24,18 @@ XMODE = 800
 YMODE = 600
 SHIPX = 75
 SHIPY = 60
- 
+BULLETX = 30
+BULLETY =20
 pygame.init()
  
  
  
 # Game Images                                                                                                                                                             
  
-backImg = 'Images\\starfield.png'
+backImg = 'background.png'
 bg = pygame.image.load(backImg)
 bg = pygame.transform.scale(bg, (XMODE, YMODE))
-defImg = 'Images\\ship.png'
+defImg = 'realspaceship.png'
 defender = pygame.image.load(defImg)
 defender = pygame.transform.scale(defender, (SHIPX, SHIPY))
 defender.set_colorkey((0, 0, 0))
@@ -79,7 +80,9 @@ enemyx_change=[]
 enemyy_change=[]
 num_enemies=6
 for i in range(num_enemies):
-    enemyimg.append(pygame.image.load("Images\\invader.png")) 
+    eimg = pygame.image.load("invader.png")
+    eimg = pygame.transform.scale(eimg, (SHIPX, SHIPY))
+    enemyimg.append(eimg) 
     
     enemyx.append(random.randint(0,736))
     enemyy.append(random.randint(15,200))
@@ -88,7 +91,8 @@ for i in range(num_enemies):
  
  
  
-bulletimg=pygame.image.load("Images\\bullet.jpg")
+bulletimg=pygame.image.load("bullet.png")
+bulletimg = pygame.transform.scale(bulletimg, (30, 20))
 bulletx=0
 bullety=480 
 bulletx_change=0
